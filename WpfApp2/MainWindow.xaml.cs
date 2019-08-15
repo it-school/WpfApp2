@@ -57,12 +57,7 @@ namespace WpfApp2
                 var bitmap = new BitmapImage(new Uri(@"pack://siteoforigin:,,/Resources/cloud1.png"));
                 imgCloud.Source = bitmap;
                 imgCloud.Opacity = currentWeather.Clouds.All;
-                /*
-                Console.WriteLine(details);
-                Console.WriteLine(details.GetValue("name"));
-                Console.WriteLine(details.GetValue("sys"));
-                Console.WriteLine(details.GetValue("sys").Value<String>("country"));
-                */
+
 
                 //Console.WriteLine($"{currentWeather.Name}({currentWeather.Coord.Lat} - {currentWeather.Coord.Lon})");
             }
