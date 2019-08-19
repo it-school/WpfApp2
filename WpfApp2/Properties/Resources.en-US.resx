@@ -139,4 +139,7 @@
   <data name="wind" xml:space="preserve">
     <value>Wind</value>
   </data>
+  <data name="temperature" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
 </root>
