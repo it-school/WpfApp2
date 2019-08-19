@@ -30,8 +30,8 @@ namespace WpfApp2
 
         public MainWindow()
         {
-            Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
             InitializeComponent();
+            textBoxWeatherInfo.Document.Blocks.Clear();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
@@ -42,22 +42,28 @@ namespace WpfApp2
 
         private void ShowWeather(object sender, RoutedEventArgs e)
         {
-
             GetWeatherDataSync();
 
 
             if (weather != "")
             {
+                textBoxWeatherInfo.Document.Blocks.Clear();
                 JObject details = JObject.Parse(weather);
                 lblCityName.Content = details.GetValue("name");
                 WeatherInfo currentWeather = JsonConvert.DeserializeObject<WeatherInfo>(weather);
-                //MessageBox.Show(currentWeather.Clouds.All.ToString());
-                imgSun.Opacity = 100;
- 
-                var bitmap = new BitmapImage(new Uri(@"pack://siteoforigin:,,/Resources/cloud1.png"));
-                imgCloud.Source = bitmap;
-                imgCloud.Opacity = currentWeather.Clouds.All;
+                textBoxWeatherInfo.SelectAll();
+                textBoxWeatherInfo.Cut();
+                textBoxWeatherInfo.AppendText($"Temperature: {(currentWeather.Main.Temp-271.15).ToString()} {Properties.Resources.degT}");
+                textBoxWeatherInfo.AppendText($"\nHumidity: {currentWeather.Main.Humidity.ToString()} %");
+                textBoxWeatherInfo.AppendText($"\nPressure: {currentWeather.Main.Pressure.ToString()}");
+                textBoxWeatherInfo.AppendText($"\n{Properties.Resources.wind}: {currentWeather.Wind.Deg}, {currentWeather.Wind.Speed.ToString()} {Properties.Resources.windSpeed}");
+                textBoxWeatherInfo.AppendText($"\nClouds: {currentWeather.Clouds.All.ToString()} %");
+                textBoxWeatherInfo.AppendText($"\nVisibility: {currentWeather.Visibility.ToString()}");
+                imgCloud.Source = new BitmapImage(new Uri(@"pack://siteoforigin:,,/Resources/cloud1.png"));
+                imgCloud.Opacity = currentWeather.Clouds.All/100;
 
+                RotateTransform rotateTransform = new RotateTransform(45);
+                imgSun.RenderTransform = rotateTransform;
 
                 //Console.WriteLine($"{currentWeather.Name}({currentWeather.Coord.Lat} - {currentWeather.Coord.Lon})");
             }
@@ -73,19 +79,33 @@ namespace WpfApp2
             WebClient client = new WebClient();
             try
             {
-                using (Stream stream = client.OpenRead("https://api.openweathermap.org/data/2.5/weather?q=Kiev,ua&appid=dac392b2d2745b3adf08ca26054d78c4&lang=ru"))
-                {
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        weather = reader.ReadToEnd();
-                    }
-                }
+                Stream stream = client.OpenRead("https://api.openweathermap.org/data/2.5/weather?q=Odessa,ua&appid=dac392b2d2745b3adf08ca26054d78c4&lang=ru");
+                weather = new StreamReader(stream).ReadToEnd();
                 lastError = "successfuly";
             }
             catch (Exception e)
             {
                 lastError = e.Message;
             }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            /*
+            switch (comboLang.SelectedIndex)
+            {
+                case 0 :
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+                    Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+                    break;
+                case 1:
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
+                    Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
+                    break;
+                default:
+                    break;
+            }
+            */
         }
     }
 }

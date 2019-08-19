@@ -19,7 +19,7 @@ namespace WpfApp2.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -89,21 +89,29 @@ namespace WpfApp2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to °C.
         /// </summary>
-        public static System.Drawing.Bitmap cloud2 {
+        public static string degT {
             get {
-                object obj = ResourceManager.GetObject("cloud2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("degT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string language {
+            get {
+                return ResourceManager.GetString("language", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        public static System.Drawing.Icon Icon1 {
+        public static System.Drawing.Icon mainIcon {
             get {
-                object obj = ResourceManager.GetObject("Icon1", resourceCulture);
+                object obj = ResourceManager.GetObject("mainIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -119,11 +127,29 @@ namespace WpfApp2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WPF       Example.
+        ///   Looks up a localized string similar to Wind.
+        /// </summary>
+        public static string wind {
+            get {
+                return ResourceManager.GetString("wind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Weather Info.
         /// </summary>
         public static string windowTitle {
             get {
                 return ResourceManager.GetString("windowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to m/s.
+        /// </summary>
+        public static string windSpeed {
+            get {
+                return ResourceManager.GetString("windSpeed", resourceCulture);
             }
         }
     }
